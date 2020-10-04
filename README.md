@@ -30,12 +30,12 @@ So as a working prototype, I have quickly put together a notebook extension with
 
 You can directly install after cloning from the source like so:
 ```
-pip install git+https://github.com/addamit/py_youngatlas.git
+pip install git+https://github.com/addamit/youngatlas.git
 ```
 
 Or git clone the repo first and install
 ```
-git clone https://github.com/addamit/py_youngatlas.git
+git clone https://github.com/addamit/youngatlas.git
 ```
 
 
@@ -43,27 +43,6 @@ now cd to the cloned repo folder and run
 ```
 pip install setup.py
 ```
-
-You can also install using pip 
-
-```
-pip install youngatlas
-
-```
-
-
-
-
-Once installed, there are a couple of steps to enable the extension:
-```
-jupyter serverextension enable --py py_youngatlas
-```
-
-You can also put your extension modules anywhere you like as long as they are importable by python's standard import mechanism. 
-By convention, they are placed in *~/.ipython/extensions/* directory by default. This path is automatically added to python path when you start jupyter notebook.
-
-
-
 
 
 ## How to run ##
