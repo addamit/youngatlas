@@ -1,1 +1,1 @@
-from yamagics.yamagics_core import *
+from yamagics.yamagicscore import *

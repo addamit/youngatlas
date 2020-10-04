@@ -21,10 +21,8 @@ from IPython.core.ultratb import AutoFormattedTB
 # initialize the formatter for making the tracebacks into strings
 itb = AutoFormattedTB(mode = 'Plain', tb_offset = 1)
 
-SERVICE_ENDPOINT = '/hello'
 
-
-from yaserver import QUOTES_LOCATION
+from yaserver import QUOTES_LOCATION, YASERVER_URI
 all_choices = []
 included_extensions = ['mp3']
 
@@ -63,8 +61,8 @@ class NotificationMagics(Magics):
         help="Other code on the line will be executed, unless this is called as a cell magic.",
     )
     @line_cell_magic
-    def moment(self, line: str, cell: Optional[str] = None):
-        args = parse_argstring(self.moment, line)        
+    def yamoment(self, line: str, cell: Optional[str] = None):
+        args = parse_argstring(self.yamoment, line)        
         MOMENTDEBUG = False
         if line and line == '#MOMENTDEBUG':
             MOMENTDEBUG = True
@@ -75,7 +73,7 @@ class NotificationMagics(Magics):
         finally:
             
             quote_url = random.choice(all_choices)
-            audio = _InvisibleAudio(url='{}/{}'.format(SERVICE_ENDPOINT, quote_url), autoplay=True)
+            audio = _InvisibleAudio(url='{}/{}'.format(YASERVER_URI, quote_url), autoplay=True)
             if MOMENTDEBUG:
                     print ("[MomentAudio]:{}".format(quote_url))
             display(audio)

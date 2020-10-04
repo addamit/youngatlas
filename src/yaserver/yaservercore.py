@@ -2,9 +2,10 @@ import os
 from notebook.utils import url_path_join
 from notebook.base.handlers import IPythonHandler
 
-YASERVER_URI = '/hello/.*'
+YASERVER_URI = '/yamoment'
 QUOTES_FOLDER = 'quotes'
 QUOTES_LOCATION = os.path.join(os.path.dirname(__file__), QUOTES_FOLDER)
+YASERVER_ENDPOINT_URI_PATH = "{}/.*".format(YASERVER_URI) 
 
 class HelloWorldHandler(IPythonHandler):
 
@@ -41,8 +42,8 @@ def load_jupyter_server_extension(nb_app):
     Based on https://github.com/Carreau/jupyter-book/blob/master/extensions/server_ext.py
     '''
     web_app = nb_app.web_app
-    host_pattern = '.*$'
-    route_pattern = url_path_join(web_app.settings['base_url'], YASERVER_URI)
+    host_pattern = '.*$'    
+    route_pattern = url_path_join(web_app.settings['base_url'], YASERVER_ENDPOINT_URI_PATH)
     print ("route_pattern  :{}".format(route_pattern))
     nb_app.log.info("yaserver core enabled!. Route pattern: {}".format(route_pattern))
     web_app.add_handlers(host_pattern, [(route_pattern, HelloWorldHandler)])

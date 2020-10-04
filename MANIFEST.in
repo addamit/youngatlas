@@ -1,11 +1,9 @@
-#include pyproject.toml
 
 # Include the README
 include *.md
 
 # Include the license file
-include LICENSE.txt
+include LICENSE
 
 # Include the data files
-recursive-include src_new/yaserver/quotes *.mp3
-#global-include *.mp3
+recursive-include src/yaserver/quotes *.mp3

@@ -21,6 +21,7 @@ from traitlets.config import Configurable
 from traitlets.config.loader import JSONFileConfigLoader, PyFileConfigLoader
 from notebook.serverextensions import ToggleServerExtensionApp, toggle_serverextension_python
 
+# Original idea from here
 # https://github.com/davidesarra/jupyter_spaces/blob/master/setup.py
 
 
@@ -65,46 +66,14 @@ class InstallCommand(install):
 		# For a fresh install this will enable the extension
 		toggle_serverextension_python(ya_server_extension)
 
-		# This is what the config should look like post running the above API. 
-		# in ~/.jupyter/jupyter_notebook_config.json
-		# {
-  		# "NotebookApp": {
-    	# "nbserver_extensions": {
-      	# "jupyter_nbextensions_configurator": true,
-      	#	"yaserver": true
-    	#		}
-  		#	}
-		# }
-
-		
-		# now install the ipython extension
-		# ipypkg = 'yamagics'
-		# ipy_pth = get_ipython_dir()
-		# extension_pth = os.path.join(ipy_pth, 'extensions')
-		# final_dst_pth = os.path.join(extension_pth, ipypkg)
-		# src_pth = os.path.join('src_new', ipypkg)
-
-		# if not os.path.exists(final_dst_pth):
-		# 	shutil.copytree(src_pth, final_dst_pth)
-		# else:
-
-		# 	print("There already exists an ipython extension [{}] \
-		# 	with the same name in location [{}]".format(ipypkg, final_dst_pth))
-		# 	backup_pkg = '{}_old'.format(ipypkg)
-		# 	backup_pth = os.path.join(final_dst_pth, os.path.join(extension_pth, backup_pkg))
-		# 	shutil.move(final_dst_pth, backup_pth)
-		# 	print ("Moved old package to {}".format(backup_pth))
-		# 	shutil.copytree(src_pth, final_dst_pth)
-
-
 		# now enable the extension 
 		enable_ipython_extension()
 
 setup(
-    name='yaserver',
+    name='youngatlas',
     version='0.1',
     packages=['yaserver', 'yamagics'], ##find_packages(where = 'src_new'),
-    package_dir = {'': 'src_new'},
+    package_dir = {'': 'src'},
     include_package_data=True,
     install_requires=['fileinput'],
     cmdclass={
