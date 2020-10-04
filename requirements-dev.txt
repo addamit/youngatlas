@@ -1,0 +1,6 @@
+pytest
+pytest-html
+pytest-cov
+pylint
+autopep8
+ipython
