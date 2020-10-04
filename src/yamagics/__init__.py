@@ -1,0 +1,1 @@
+from yamagics.yamagicscore import *
