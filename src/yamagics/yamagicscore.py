@@ -1,8 +1,9 @@
 """
 IPYthon Magics Extension to play audio without displaying the audio widget.  
 """
+from yaserver import QUOTES_LOCATION, YASERVER_URI
 import os
-import random 
+import random
 import pathlib
 import inspect
 
@@ -13,16 +14,14 @@ from IPython.core.magic import line_cell_magic, Magics, magics_class
 from IPython.core.magic_arguments import argument, magic_arguments, parse_argstring
 
 
-
 # https://stackoverflow.com/questions/61176900/jupyter-colab-play-sound-with-any-error-in-any-cell-play-sound-after-compl/61176901
 from IPython.core.ultratb import AutoFormattedTB
 # Catch any Exception, play error sound and re-raise the Exception
-#-------------------------------------------------
+# -------------------------------------------------
 # initialize the formatter for making the tracebacks into strings
-itb = AutoFormattedTB(mode = 'Plain', tb_offset = 1)
+itb = AutoFormattedTB(mode='Plain', tb_offset=1)
 
 
-from yaserver import QUOTES_LOCATION, YASERVER_URI
 all_choices = []
 included_extensions = ['mp3']
 
@@ -37,7 +36,7 @@ class _InvisibleAudio(Audio):
         audio = super()._repr_html_()
         audio = audio.replace(
             "<audio", '<audio onended="this.parentNode.removeChild(this)"'
-        )        
+        )
         return f'<div style="display:none">{audio}</div>'
         # return f'<div">{audio}</div>'
 
@@ -62,7 +61,7 @@ class NotificationMagics(Magics):
     )
     @line_cell_magic
     def yamoment(self, line: str, cell: Optional[str] = None):
-        args = parse_argstring(self.yamoment, line)        
+        args = parse_argstring(self.yamoment, line)
         MOMENTDEBUG = False
         if line and line == '#MOMENTDEBUG':
             MOMENTDEBUG = True
@@ -71,19 +70,22 @@ class NotificationMagics(Magics):
         try:
             ret = self.shell.ex(code)
         finally:
-            
+
             quote_url = random.choice(all_choices)
-            audio = _InvisibleAudio(url='{}/{}'.format(YASERVER_URI, quote_url), autoplay=True)
+            audio = _InvisibleAudio(
+                url='{}/{}'.format(YASERVER_URI, quote_url), autoplay=True)
             if MOMENTDEBUG:
-                    print ("[MomentAudio]:{}".format(quote_url))
+                print("[MomentAudio]:{}".format(quote_url))
             display(audio)
 
         return ret
 
+
 def load_ipython_extension(ipython):
-    ipython.register_magics(NotificationMagics)    
-    file_names = [fn for fn in os.listdir(QUOTES_LOCATION) if any(fn.endswith(ext) for ext in included_extensions)]
+    ipython.register_magics(NotificationMagics)
+    file_names = [fn for fn in os.listdir(QUOTES_LOCATION) if any(
+        fn.endswith(ext) for ext in included_extensions)]
     all_choices.extend(file_names)
     # ipython.shell.set_custom_exc((Exception,), custom_exc)
 
-#get_ipython().register_magics(NotificationMagics)
+# get_ipython().register_magics(NotificationMagics)
