@@ -92,6 +92,6 @@ And for the notebook extension,
   }
 }
 ```
-
+```
 # Changes #
 For changes, see the [change log](CHANGELOG.rst)
