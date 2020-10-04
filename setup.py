@@ -74,8 +74,7 @@ setup(
     version='0.1',
     packages=['yaserver', 'yamagics'], ##find_packages(where = 'src_new'),
     package_dir = {'': 'src'},
-    include_package_data=True,
-    install_requires=['fileinput'],
+    include_package_data=True,    
     cmdclass={
         'install': InstallCommand
     }

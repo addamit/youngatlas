@@ -13,7 +13,7 @@ def session_ip():
 	return session_ip
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def ip(session_ip):
 	"""Verify the extension is automatically loaded."""
 	status = session_ip.find_cell_magic("yamagics")

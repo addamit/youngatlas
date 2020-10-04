@@ -49,26 +49,21 @@ pip install setup.py
 
 
 After you have successfully installed the extension, you can run the extension in any jupyter notebook by typing the magic %youngatlas in any code cell, just before you start typing any code. 
-[[TODO: add a screenshot]]
+
+See sample notebook in the example folder
 
 Once the cell finishes execution, you will be showered with deep meaning wisdom audio clip (about 10-20 seconds) that might make a connection with you. Be sure to keep your computer/laptop sound button unmuted so you can hear the clip.
 
 
-It activate it in notebook, refer the notebook in the example folder.  
-
-.. code-block
-   >> import youngatlas
-   >> 
-
-
  # Contributing #
+
+Send pull requests, open feature requests or DM me on twitter `@addamit` for any collaboration.
+
  
 To build the package `python setup.py sdist bdist_wheel`
 
 To install 
  `pip install --no-index --find-link=dist/ youngatlas==0.1`
-
-Send pull requests, open feature requests or DM me on twitter `@addamit` for any collaboration.
 
 
 For local development of packages:
