@@ -20,6 +20,8 @@ from IPython.paths import get_ipython_dir
 from traitlets.config import Configurable
 from traitlets.config.loader import JSONFileConfigLoader, PyFileConfigLoader
 from notebook.serverextensions import ToggleServerExtensionApp, toggle_serverextension_python
+from IPython.core.profileapp import ProfileList, ProfileCreate, ProfileLocate, ProfileApp, list_profiles_in
+
 
 # Original idea from here
 # https://github.com/davidesarra/jupyter_spaces/blob/master/setup.py
@@ -36,7 +38,7 @@ def replace(source_file_path, pattern, new_pattern):
 		sys.stdout.write(line)
 
 
-def enable_ipython_extension():
+def enable_ipython_extension_legacy():
 
 	c = PyFileConfigLoader(IPython.paths.locate_profile()+"\\ipython_config.py")
 	cfg = c.load_config()
@@ -48,6 +50,33 @@ def enable_ipython_extension():
 
 		# update config file with new extn added to list for c.InteractiveShellApp.extensions 
 		ipy_config_file = os.path.join(IPython.paths.locate_profile(), "ipython_config.py")
+		replace(ipy_config_file, "c.InteractiveShellApp.extensions", exts_list_str)
+
+
+def enable_ipython_extension():
+	
+	# check if IPython default profile is present 
+
+	p = ProfileList()
+	found_profiles = list_profiles_in(p.ipython_dir)
+
+	if 'default' not in found_profiles:
+		#need to create a default profile 
+		profile_creator = ProfileCreate()
+		profile_creator.init_config_files()
+
+	ipy_config_file = os.path.join(IPython.paths.locate_profile(), "ipython_config.py")
+
+	c = PyFileConfigLoader(ipy_config_file)
+	cfg = c.load_config()
+	extns = cfg['InteractiveShellApp']['extensions']
+	if ya_magics_extension not in extns:
+		cfg['InteractiveShellApp']['extensions'] += [ya_magics_extension]
+		exts = cfg['InteractiveShellApp']['extensions']
+		exts_list_str = "c.InteractiveShellApp.extensions = {}".format(exts)
+
+		# update config file with new extn added to list for c.InteractiveShellApp.extensions 
+		
 		replace(ipy_config_file, "c.InteractiveShellApp.extensions", exts_list_str)
 
 
