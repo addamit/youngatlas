@@ -37,6 +37,12 @@ def replace(source_file_path, pattern, new_pattern):
 			line = '{}\n'.format(new_pattern)
 		sys.stdout.write(line)
 
+def uncomment_extension_section(config_file):
+
+	for line in fileinput.input([config_file], inplace=True):	
+		if line.strip().startswith('#c.InteractiveShellApp.extensions'):
+			line = '{}\n'.format("c.InteractiveShellApp.extensions = []")
+		sys.stdout.write(line)
 
 def enable_ipython_extension_legacy():
 
@@ -66,7 +72,8 @@ def enable_ipython_extension():
 		profile_creator.init_config_files()
 
 	ipy_config_file = os.path.join(IPython.paths.locate_profile(), "ipython_config.py")
-
+	uncomment_extension_section(ipy_config_file)
+	
 	c = PyFileConfigLoader(ipy_config_file)
 	cfg = c.load_config()
 	extns = cfg['InteractiveShellApp']['extensions']
